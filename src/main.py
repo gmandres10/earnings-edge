@@ -24,4 +24,4 @@ st.set_page_config(
 )
 
 with st.sidebar:
-    
+    st.title("Earnings Analyzer")
