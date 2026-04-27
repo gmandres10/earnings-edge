@@ -24,4 +24,5 @@ st.set_page_config(
 )
 
 with st.sidebar:
-    st.title("Earnings Analyzer")
+    st.title("Earnings Edge")
+    ticket
