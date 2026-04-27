@@ -5,6 +5,8 @@ import time
 import json
 import matplotlib.pyplot as plt
 
+from get_data import GetData
+from earnings_analyzer import EarningsAnalyzer
 
 
 APP_PATH = os.path.dirname(os.path.abspath(__file__))
