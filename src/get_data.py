@@ -8,4 +8,6 @@ class GetData:
         self._stock = yf.Ticker(self.ticker)
         
     def get_earnings_result(self):
-        df = self._stock.earnings
+        df = self._stock.earnings_dates
+        if df is None or df.empty:
+            return N
