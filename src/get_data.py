@@ -19,4 +19,5 @@ class GetData:
             return ValueError(f"Company name not found for ticker {self.ticker}.")
         return info['longName']
     
-            
+    def get_current_stock_price(self):
+        info = self._stock.info
