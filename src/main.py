@@ -25,4 +25,4 @@ st.set_page_config(
 
 with st.sidebar:
     st.title("Earnings Edge")
-    ticket
+    ticket_input = st.text
