@@ -17,4 +17,6 @@ class GetData:
         info = self._stock.info
         if 'longName' not in info:
             return ValueError(f"Company name not found for ticker {self.ticker}.")
-        return info['longName']        
+        return info['longName']
+    
+            
