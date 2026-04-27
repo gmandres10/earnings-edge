@@ -7,5 +7,5 @@ class EarningsAnalyzer:
         self.df = self._clean(raw_df)
         
     def _clean(self, df: pd.DataFrame):
-        df = df.dropna()
+        df = df.dropna(subset=["EPS "])
     
