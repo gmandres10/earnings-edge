@@ -6,4 +6,6 @@ class EarningsAnalyzer:
         self.num_quarters = num_quarters
         self.df = self._clean(raw_df)
         
+    def _clean(self, df: pd.DataFrame):
+        df = 
     
