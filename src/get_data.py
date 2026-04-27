@@ -7,4 +7,4 @@ class GetData:
         self.ticker = str(ticker.upper().strip())
         self._stock = yf.Ticker(self.ticker)
         
-    
+    def 
