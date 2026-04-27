@@ -21,3 +21,4 @@ class GetData:
     
     def get_current_stock_price(self):
         info = self._stock.info
+        if 'currentPrice'
