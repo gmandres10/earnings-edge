@@ -14,4 +14,5 @@ class GetData:
         return df
     
     def get_company_name(self):
-        info = self._stock,info
+        info = self._stock.info
+        if 'longName' not in info:
