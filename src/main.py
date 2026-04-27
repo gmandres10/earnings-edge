@@ -26,3 +26,4 @@ st.set_page_config(
 with st.sidebar:
     st.title("Earnings Edge")
     ticket_input = st.text_input ("Enter a stock ticker symbol (e.g., AAPL, MSFT, GOOGL): ")
+    an
