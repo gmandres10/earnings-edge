@@ -29,4 +29,4 @@ with st.sidebar:
     analyze_button = st.button ("Analyze Earnings", use_container_width=True, type="primary")
     
 st.title("Earnings Edge")
-st.write("Enter a ticker and click Analyze ")
+st.write("Enter a ticker and click Analyze to get started")
