@@ -10,5 +10,5 @@ class EarningsAnalyzer:
         df = df.dropna(subset=["EPS Estimate", "Reported EPS"]).copy()
         df = df.sort_index(ascending = True)
         
-        df = df.tail()
+        df = df.tail(self.num_quarters)
     
