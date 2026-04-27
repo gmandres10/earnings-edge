@@ -23,3 +23,4 @@ class GetData:
         info = self._stock.info
         if 'currentPrice' not in info:
             return ValueError(f"Current stock price not found for ticker {self.ticker}.")
+        return info[]
