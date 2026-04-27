@@ -4,4 +4,5 @@ import pandas as pd
 class GetData:
     
     def __init__(self, ticker):
-        self.ticker = str
+        self.ticker = str(ticker.upper().strip())
+        self._
