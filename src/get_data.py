@@ -16,3 +16,4 @@ class GetData:
     def get_company_name(self):
         info = self._stock.info
         if 'longName' not in info:
+            return ValueError()
