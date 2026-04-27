@@ -5,4 +5,6 @@ class GetData:
     
     def __init__(self, ticker):
         self.ticker = str(ticker.upper().strip())
-        self._stock = yf.Ticker
+        self._stock = yf.Ticker(self.ticker)
+        
+    
