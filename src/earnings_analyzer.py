@@ -7,5 +7,6 @@ class EarningsAnalyzer:
         self.df = self._clean(raw_df)
         
     def _clean(self, df: pd.DataFrame):
-        df = df.dropna(subset=["EPS Estimate", "Reported EPS"])
+        df = df.dropna(subset=["EPS Estimate", "Reported EPS"]).copy()
+        df = df.sort
     
