@@ -19,5 +19,6 @@ def get_data_path(filename: str) -> str:
 st.set_page_config(
     page_title="Earnings Analyzer",
     page_icon="📈",
-    
+    layout="centered",
+    initial_sidebar_state="expanded",
 )
