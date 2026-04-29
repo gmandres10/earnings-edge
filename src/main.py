@@ -23,7 +23,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-ss = st.
+ss = st.session_state
 
 with st.sidebar:
     st.title("Earnings Edge")
