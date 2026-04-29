@@ -54,6 +54,7 @@ if analyze_button and ticker_input:
                 ss.df = None
             else:
                 ss.df = df    
-        
+        except Exception as e:
+            st.error(f)
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
