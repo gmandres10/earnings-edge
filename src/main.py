@@ -64,7 +64,7 @@ if ss.df is None:
 else:
     st.title(f"Earnings Analysis for {ss.company_name} ({ss.ticker})")
     st.write("Here are the earnings results for the last few quarters:")
-    st.dataframe(ss.df)    
+    st.dataframe(ss.df, use_container_width = True)    
 
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
