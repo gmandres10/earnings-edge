@@ -4,6 +4,7 @@ import pandas as pd
 import time 
 import json
 import matplotlib.pyplot as plt
+import yfinance as yf
 
 from get_data import GetData
 from earnings_analyzer import EarningsAnalyzer
@@ -44,7 +45,12 @@ if analyze_button and ticker_input:
     
     with st.spinner(f"Fetching data for {ticker_input}..."):
         try:
-            stock = yf.Ticker
+            stock = yf.Ticker(ss.ticker)
+            ss.company_name = stock.info.get('longName', ss.ticker)
+            df = stock.earnings_dates
+            
+            if df is None or df.empty:
+                st.warning(f"")
         
         
 st.title("Earnings Edge")
