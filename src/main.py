@@ -5,7 +5,7 @@ import time
 import json
 import matplotlib.pyplot as plt
 import yfinance as yf
-import lxm
+
 
 from get_data import GetData
 from earnings_analyzer import EarningsAnalyzer
