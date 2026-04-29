@@ -26,7 +26,10 @@ st.set_page_config(
 ss = st.session_state
 
 if "ticker" not in ss:
+    ss.ticker = "AAPL"
     
+if "df" not in ss:
+    ss.df = 
 
 with st.sidebar:
     st.title("Earnings Edge")
