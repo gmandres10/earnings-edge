@@ -59,6 +59,7 @@ if analyze_button and ticker_input:
             ss.df = None
             
 if ss.df is None:
-    st.title
+    st.title("Earnings Edge")
+    st.write("Enter a ticker ")
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
