@@ -50,8 +50,10 @@ if analyze_button and ticker_input:
             df = stock.earnings_dates
             
             if df is None or df.empty:
-                st.warning(f"")
-        
+                st.warning(f"No earnings data found for ticker {ss.ticker}")
+                ss.df = None
+            else:
+                ss.df = df    
         
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
