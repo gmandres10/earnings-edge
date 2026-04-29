@@ -39,7 +39,8 @@ with st.sidebar:
     ticket_input = st.text_input ("Enter a stock ticker symbol (e.g., AAPL, MSFT, GOOGL): ", value=ss.ticker).upper().strip()
     analyze_button = st.button ("Analyze Earnings", use_container_width=True, type="primary")
 
-if analyze_btn and ticket_input:
-    
+if analyze_button and ticket_input:
+    ss.ticker = ticket_input
+        
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
