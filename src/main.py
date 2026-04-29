@@ -25,6 +25,9 @@ st.set_page_config(
 
 ss = st.session_state
 
+if "ticker" not in ss:
+    
+
 with st.sidebar:
     st.title("Earnings Edge")
     ticket_input = st.text_input ("Enter a stock ticker symbol (e.g., AAPL, MSFT, GOOGL): ")
