@@ -63,7 +63,7 @@ if ss.df is None:
     st.write("Enter a ticker in the sidebar and click Analyze to get started")
 else:
     st.title(f"Earnings Analysis for {ss.company_name} ({ss.ticker})")
-    st.write     
+    st.write("")    
 
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
