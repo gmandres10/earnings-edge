@@ -41,6 +41,8 @@ with st.sidebar:
 
 if analyze_button and ticket_input:
     ss.ticker = ticket_input
+    
+    
         
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
