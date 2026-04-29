@@ -36,13 +36,16 @@ if "company_name" not in ss:
 
 with st.sidebar:
     st.title("📈 Earnings Edge")
-    ticket_input = st.text_input ("Enter a stock ticker symbol (e.g., AAPL, MSFT, GOOGL): ", value=ss.ticker).upper().strip()
+    ticker_input = st.text_input ("Enter a stock ticker symbol (e.g., AAPL, MSFT, GOOGL): ", value=ss.ticker).upper().strip()
     analyze_button = st.button ("Analyze Earnings", use_container_width=True, type="primary")
 
-if analyze_button and ticket_input:
-    ss.ticker = ticket_input
+if analyze_button and ticker_input:
+    ss.ticker = ticker_input
     
-    
+    with st.spinner(f"Fetching data for {ticker_input}..."):
+        try:
+            stock = yf.Ticker
+        
         
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
