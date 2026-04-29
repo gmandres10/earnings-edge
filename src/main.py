@@ -29,7 +29,10 @@ if "ticker" not in ss:
     ss.ticker = "AAPL"
     
 if "df" not in ss:
-    ss.df = 
+    ss.df = None
+    
+if "company_name" not in ss:
+    ss.company_name = ""
 
 with st.sidebar:
     st.title("Earnings Edge")
