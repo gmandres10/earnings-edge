@@ -17,9 +17,9 @@ def get_data_path(filename: str) -> str:
     return os.path.join(APP_PATH, "data", filename)
 
 st.set_page_config(
-    page_title="Earnings Analyzer",
+    page_title="Earnings Edge",
     page_icon="📈",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="expanded",
 )
 
