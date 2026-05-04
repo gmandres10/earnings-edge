@@ -92,7 +92,8 @@ else:
         
     ax.set_xlabel("Earnings Date", color="white")
     ax.set_ylabel("Surprise %", color="white")
-    ax.tick_params()
+    ax.tick_params(colors="white", axis="both")
+    
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
