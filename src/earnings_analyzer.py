@@ -9,4 +9,6 @@ class EarningsAnalyzer:
         
         df = df.dropna(subset=["EPS Estimate", "Reported EPS"]).copy()
         
+        df = df.
+        
     
