@@ -84,7 +84,7 @@ else:
     ax.set_facecolor("#0e1117")
     
     colors = ["#2ecc71" if r == "✅ Beat" else "#e74c3c" for r in ss.df["Result"]]
-    bars = ax.bar(ss.df.index.astype(str), ss.df["Surprise %"], color=colors, width = 0.6)
+    bars = ax.bar(ss.df.index.astype(str), plot_df["Surprise %"], color=colors, width = 0.6)
     
     ax.axhline(0, color="white", linewidth=0.8, linestyle="--", alpha=0.5)
     
