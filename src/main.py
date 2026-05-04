@@ -82,6 +82,7 @@ else:
     ax.set_facecolor("#0e1117")
     
     colors = ["#2ecc71" if r == "✅ Beat" else "#e74c3c" for r in ss.df["Result"]]
+    bars = ax.bar()
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
