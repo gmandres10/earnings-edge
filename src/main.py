@@ -81,7 +81,7 @@ else:
     fig.patch.set_facecolor("#0e1117")
     ax.set_facecolor("#0e1117")
     
-    
+    colors = ["#2ecc71"]
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
