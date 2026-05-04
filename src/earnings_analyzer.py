@@ -17,7 +17,7 @@ class EarningsAnalyzer:
         df["Result"] = df["Beat"].map({True: "✅ Beat", False: "❌ Miss"})
         
         df = df.drop(columns=["Surprise(%)"], errors="ignore")
-        df = df.drop(columns=)
+        df = df.drop(columns=["Beat"], errors="ignore")
         
         return df
     
