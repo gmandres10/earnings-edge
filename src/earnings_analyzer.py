@@ -13,6 +13,6 @@ class EarningsAnalyzer:
         df["Surprise %"] = (
             (df["Reported EPS"] - df["EPS Estimate"]) / df["EPS Estimate"].abs()) * 100
         
-        df["Beat"] = df[]
+        df["Beat"] = df["Surprise %"] > 0
         
     
