@@ -11,7 +11,7 @@ class EarningsAnalyzer:
         
         df = df.sort_index(ascending=False)
         df["Surprise %"] = (
-            (df["Reported EPS"] - df["EPS Estimate"]) / df["EPS Estimate"] * 100
+            (df["Reported EPS"] - df["EPS Estimate"]) / df["EPS Estimate"].abs() * 100
         )
         
     
