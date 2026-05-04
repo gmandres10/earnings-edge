@@ -79,6 +79,8 @@ else:
     
     fig, ax = plt.subplots(figsize=(12,5))
     fig.patch.set_facecolor("#0e1117")
+    ax.set_facecolor("#0e1117")
+    
     
     
     st.write("### Earnings History")
