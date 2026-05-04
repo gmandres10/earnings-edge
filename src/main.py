@@ -56,11 +56,11 @@ if analyze_button and ticker_input:
             else:
                 analyzer = EarningsAnalyzer(df)
                 ss.df = analyzer.get_df()
-                
+                ss.analyzer = analyzer
         except Exception as e:
             st.error(f"Error : {e}")
             ss.df = None
-            
+            ss.analyzer = None
 if ss.df is None:
     st.title("Earnings Edge")
     st.write("Enter a ticker in the sidebar and click Analyze to get started")
