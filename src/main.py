@@ -66,17 +66,8 @@ if ss.df is None:
     st.write("Enter a ticker in the sidebar and click Analyze to get started")
 else:
     st.title(f"Earnings Analysis for {ss.company_name} ({ss.ticker})")
-    st.subheader("Earnings Summary")
     
-    col1, col2, col3, col4, col5 = st.columns(5)
-    col1.metric("Beat Rate", f"{ss.analyzer.beat_rate():.2f}%")
-    col2.metric("Avg Surprise %", f"{ss.analyzer.average_surprise():.2f}%")
-    col3.metric("Best Surprise %", f"{ss.analyzer.best_quarter():.2f}%")
-    col4.metric("Worst Surprise %", f"{ss.analyzer.worst_quarter():.2f}%")
-    col5.metric("Quarters Analyzed", ss.analyzer.quarters_analyzed())
     
-    st.subheader("Earnings Results by Quarter")
-    st.dataframe(ss.df[["EPS Estimate", "Reported EPS", "Surprise %", "Result"]])
 
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
