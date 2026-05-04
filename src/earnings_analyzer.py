@@ -14,6 +14,6 @@ class EarningsAnalyzer:
             (df["Reported EPS"] - df["EPS Estimate"]) / df["EPS Estimate"].abs()) * 100
         
         df["Beat"] = df["Surprise %"] > 0
-        df["Result"] = df["Beat"]
+        df["Result"] = df["Beat"].map({True: "✅})
         
     
