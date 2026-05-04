@@ -7,6 +7,6 @@ class EarningsAnalyzer:
         
     def _clean_data(self, df):
         
-        df = df.dropna(subset=["EPS Est"])
+        df = df.dropna(subset=["EPS Estimate", "Reported EPS"]).copy()
         
     
