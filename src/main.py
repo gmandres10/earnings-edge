@@ -86,7 +86,8 @@ else:
     
     ax.axhline(0, color="white", linewidth=0.8, linestyle="--", alpha=0.5)
     
-    for bar, val in zip(bars, ss.)
+    for bar, val in zip(bars, ss.df["Surprise %"]):
+        y_
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
