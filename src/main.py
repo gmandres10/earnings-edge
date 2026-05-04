@@ -77,7 +77,7 @@ else:
     
     st.write("### EPS Surprise % Per Quarter")
     
-    plot_df = ss.df.sort_index
+    plot_df = ss.df.sort_index(ascending=True).tail(12)
     
     fig, ax = plt.subplots(figsize=(12,5))
     fig.patch.set_facecolor("#0e1117")
