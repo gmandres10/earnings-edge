@@ -21,6 +21,6 @@ class EarningsAnalyzer:
     def get_df(self):
         return self.df
     def beat_rate(self):
-        return self.df[]
+        return self.df["Beat"].mean()
         
     
