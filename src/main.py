@@ -78,7 +78,8 @@ else:
     st.write("### EPS Surprise % Per Quarter")
     
     fig, ax = plt.subplots(figsize=(12,5))
-    fig.patch.set_facecolor("#0e")
+    fig.patch.set_facecolor("#0e1117")
+    
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
