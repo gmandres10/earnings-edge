@@ -9,6 +9,7 @@ class EarningsAnalyzer:
         
         df = df.dropna(subset=["EPS Estimate", "Reported EPS"]).copy()
         
-        df = df.sort
+        df = df.sort_index(ascending=False)
+        
         
     
