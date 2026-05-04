@@ -94,7 +94,7 @@ else:
     ax.set_ylabel("Surprise %", color="white")
     ax.tick_params(colors="white", axis="both")
     ax.tick_params(axis="x", rotation=45)
-    ax.spiness[[]]
+    ax.spiness[["top", "right", "left", "bottom"]]
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
