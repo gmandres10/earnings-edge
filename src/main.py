@@ -75,6 +75,7 @@ else:
     
     st.divider()
     
-    st.write("")
+    st.write("### Earnings History")
+    
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
