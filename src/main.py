@@ -100,7 +100,7 @@ else:
     st.pyplot(fig)
     
     col_1, col_r = st.columns(2)
-    col_1.success()
+    col_1.success("✅ Beat Quarters")
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
