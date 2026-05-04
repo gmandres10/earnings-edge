@@ -16,5 +16,9 @@ class EarningsAnalyzer:
         df["Beat"] = df["Surprise %"] > 0
         df["Result"] = df["Beat"].map({True: "✅ Beat", False: "❌ Miss"})
         
+        return df
+    
+    def get_df(self):
+        
         
     
