@@ -83,7 +83,7 @@ else:
     fig.patch.set_facecolor("#0e1117")
     ax.set_facecolor("#0e1117")
     
-    colors = ["#2ecc71" if r == "✅ Beat" else "#e74c3c" for r in ss.df["Result"]]
+    colors = ["#2ecc71" if r == "✅ Beat" else "#e74c3c" for r in plot_df["Result"]]
     bars = ax.bar(plot_df.index.astype(str), plot_df["Surprise %"], color=colors, width = 0.6)
     
     ax.axhline(0, color="white", linewidth=0.8, linestyle="--", alpha=0.5)
