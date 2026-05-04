@@ -76,6 +76,6 @@ else:
     st.divider()
     
     st.write("### Earnings History")
-    
+    st. dataframe(ss.df, use_)
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
