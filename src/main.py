@@ -54,7 +54,9 @@ if analyze_button and ticker_input:
                 st.warning(f"No earnings data found for ticker {ss.ticker}")
                 ss.df = None
             else:
-                ss.df = df    
+                analyzer = EarningsAnalyzer(df)
+                ss.df = analyzer.get_df()
+                
         except Exception as e:
             st.error(f"Error : {e}")
             ss.df = None
