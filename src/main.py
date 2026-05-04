@@ -84,7 +84,7 @@ else:
     colors = ["#2ecc71" if r == "✅ Beat" else "#e74c3c" for r in ss.df["Result"]]
     bars = ax.bar(ss.df.index.astype(str), ss.df["Surprise %"], color=colors, width = 0.6)
     
-    ax.axhline(0, color="white", linewidth=0.8)
+    ax.axhline(0, color="white", linewidth=0.8, linestyle="--", alpha=0.5)
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
