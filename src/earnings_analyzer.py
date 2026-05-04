@@ -19,6 +19,8 @@ class EarningsAnalyzer:
         return df
     
     def get_df(self):
-        
+        return self.df
+    def beat_rate(self):
+        return self.df[]
         
     
