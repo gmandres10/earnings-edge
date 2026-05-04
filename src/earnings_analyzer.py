@@ -25,6 +25,9 @@ class EarningsAnalyzer:
     def average_surprise(self):
         return self.df["Surprise %"].mean()
     def best_quarter(self):
-        return self.df[]
+        return self.df["Surprise %"].max()
+    def worst_quarter(self):
+        return self.df["Surprise %"].min()
+    def quarters_analyzed 
         
     
