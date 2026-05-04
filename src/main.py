@@ -77,6 +77,8 @@ else:
     
     st.write("### EPS Surprise % Per Quarter")
     
+    plot_df
+    
     fig, ax = plt.subplots(figsize=(12,5))
     fig.patch.set_facecolor("#0e1117")
     ax.set_facecolor("#0e1117")
