@@ -100,7 +100,8 @@ else:
     st.pyplot(fig)
     
     col_1, col_r = st.columns(2)
-    col_1.success("✅ Beat Quarters - Reported EPS ")
+    col_1.success("✅ Beat Quarters - Reported EPS above estimate")
+    col_r.error("❌ Miss Quarters - Reported EPS below estimate")
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
