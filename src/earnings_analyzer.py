@@ -28,6 +28,7 @@ class EarningsAnalyzer:
         return self.df["Surprise %"].max()
     def worst_quarter(self):
         return self.df["Surprise %"].min()
-    def quarters_analyzed 
+    def quarters_analyzed(self):
+        return len(self.df)
         
     
