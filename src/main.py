@@ -91,7 +91,8 @@ else:
         ax.text(bar.get_x() + bar.get_width() / 2, y_pos, f"{val:+.1f}%", ha="center", color="white", fontsize=8)
         
     ax.set_xlabel("Earnings Date", color="white")
-    ax.set_y
+    ax.set_ylabel("Surprise %", color="white"
+                  )
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
