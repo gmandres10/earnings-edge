@@ -95,6 +95,8 @@ else:
     ax.tick_params(colors="white", axis="both")
     ax.tick_params(axis="x", rotation=45)
     ax.spiness[["top", "right", "left", "bottom"]].set_color("#333")
+    fig.tight_layout()
+    
     
     
     st.write("### Earnings History")
