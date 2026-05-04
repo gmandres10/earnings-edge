@@ -24,6 +24,7 @@ class EarningsAnalyzer:
         return self.df["Beat"].mean() * 100
     def average_surprise(self):
         return self.df["Surprise %"].mean()
-    def 
+    def best_quarter(self):
+        
         
     
