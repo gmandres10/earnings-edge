@@ -81,7 +81,7 @@ else:
     fig.patch.set_facecolor("#0e1117")
     ax.set_facecolor("#0e1117")
     
-    colors = ["#2ecc71"]
+    colors = ["#2ecc71" if r == "✅ Beat" else "#e74c3c" for r in ss.df["Result"]]
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
