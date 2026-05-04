@@ -73,6 +73,8 @@ else:
     col3.metric("Best Quarter", f"{ss.analyzer.best_quarter():+.1f}%")
     col4.metric("Worst Quarter", f"{ss.analyzer.worst_quarter():+.1f}%")
     
-    st.dialog
+    st.divider()
+    
+    st.write("")
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
