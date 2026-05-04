@@ -88,7 +88,7 @@ else:
     
     for bar, val in zip(bars, ss.df["Surprise %"]):
         y_pos = bar.get_height() + 0.3 if val >= 0 else bar.get_height() - 1.5
-        ax.text(bar.get)
+        ax.text(bar.get_x() + )
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
