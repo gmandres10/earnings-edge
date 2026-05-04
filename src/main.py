@@ -69,7 +69,7 @@ else:
     
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Beat Rate", f"{ss.analyzer.beat_rate():.0f}%")
-    col2.metric
+    col2.metric("Average Surprise", f"{ss.analyzer.average_surprise():.2f}%")
 
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
