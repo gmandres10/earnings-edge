@@ -96,5 +96,6 @@ else:
     ax.tick_params(axis="x", rotation=45)
     ax.spiness[["top", "right", "left", "bottom"]].set_color("#333")
     
+    
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
