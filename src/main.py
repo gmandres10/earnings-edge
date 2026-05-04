@@ -67,7 +67,7 @@ if ss.df is None:
 else:
     st.title(f"Earnings Analysis for {ss.company_name} ({ss.ticker})")
     
-    
+    col1, col2, col3, col4
 
 st.title("Earnings Edge")
 st.write("Enter a ticker and click Analyze to get started")
