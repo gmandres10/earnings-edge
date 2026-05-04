@@ -97,7 +97,9 @@ else:
     ax.spiness[["top", "right", "left", "bottom"]].set_color("#333")
     fig.tight_layout()
     
+    st.pyplot(fig)
     
+    col_
     
     st.write("### Earnings History")
     st.dataframe(ss.df, use_container_width=True)
