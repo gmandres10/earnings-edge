@@ -1,7 +1,7 @@
 import os
 import json
 
-class FavortiesManager:
+class FavoritesManager:
     
     def __init__(self, filepath):
         self.filepath = filepath
