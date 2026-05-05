@@ -7,4 +7,8 @@ class Predictor:
         self.analyzer = analyzer
         self._stock = yf.Ticker(ticker)
         
-    
+    def beat_probability(self):
+        df = self.analyzer.get_df()
+        
+        if df.empty:
+            
