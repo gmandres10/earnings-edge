@@ -12,3 +12,6 @@ class FavortiesManager:
             with open(self.filepath, "r") as f:
                 return json.load(f)
         return {}
+    
+    def _write(self):
+        os.makedirs()
