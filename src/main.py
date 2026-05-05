@@ -102,7 +102,8 @@ else:
         
         st.pyplot(fig)
         
-        col_1
+        col_1, col_r = st.columns(2)
+        col_
     
     
     
