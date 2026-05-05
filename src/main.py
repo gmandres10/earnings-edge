@@ -43,6 +43,7 @@ with st.sidebar:
     st.divider()
     st.subheader("⭐ Favorites")
     favorites_list = favorites.get_all()
+    
 
 if analyze_button and ticker_input:
     ss.ticker = ticker_input
