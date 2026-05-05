@@ -58,6 +58,8 @@ with st.sidebar:
                 if st.button("❌", key=f"del_{fav}"):
                     favorites.remove(fav)
                     st.rerun()
+    else:
+        st.ca
 
 if analyze_button and ticker_input:
     ss.ticker = ticker_input
