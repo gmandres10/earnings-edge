@@ -30,4 +30,6 @@ class FavortiesManager:
         return self._data.get(ticker, {}).get("note", "")
     
     def get_all(self):
-        return 
+        return list(self._data.keys())
+    
+    
