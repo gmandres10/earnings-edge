@@ -65,7 +65,8 @@ with st.sidebar:
 
 if (analyze_button and ticker_input) or ss.auto_analyze:
     ss.auto_analyze = False
-    ss.ticker = ticker_input
+    if analyze_button:
+        ss.ticker = ticker_input
     
     with st.spinner(f"Fetching data for {ticker_input}..."):
         try:
