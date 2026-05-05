@@ -84,7 +84,7 @@ else:
         fig.patch.set_facecolor("#0e1117")
         ax.set_facecolor("#0e1117")
         
-        
+        colors = [""]
     
     
     
