@@ -59,7 +59,7 @@ with st.sidebar:
                     favorites.remove(fav)
                     st.rerun()
     else:
-        st.ca
+        st.caption("No favorites yet. Analyze a stock and click the ⭐ button to add it here.")
 
 if analyze_button and ticker_input:
     ss.ticker = ticker_input
