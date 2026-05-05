@@ -87,7 +87,10 @@ else:
         colors = ["#2ecc71" if r == "✅ Beat" else "#e74c3c" for r in plot_df["Result"]]
         bars = ax.bar(plot_df.index.astype(str), plot_df["Surprise %"], color=colors, width = 0.6)
         
-        ax.axhline
+        ax.axhline(0, color="white", linewidth=0.8, linestyle="--", alpha=0.5)
+        
+        for bar, val in zip(bars, plot_df["Surprise %"]):
+            y_pos = bar.get
     
     
     
