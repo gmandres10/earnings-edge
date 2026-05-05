@@ -81,7 +81,10 @@ else:
         plot_df = ss.df.sort_index(ascending=True).tail(12)
         
         fig, ax = plt.subplots(figsize=(12,5))
-        fig.patch.set_fcac
+        fig.patch.set_facecolor("#0e1117")
+        ax.set_facecolor("#0e1117")
+        
+        
     
     
     
