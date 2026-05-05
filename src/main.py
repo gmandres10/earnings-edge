@@ -55,7 +55,7 @@ with st.sidebar:
                     ss.analyzer = None
                     st.rerun()
             with col_b:
-                if st.button("❌", use_container_width=True, key=f"remove_{fav}"):
+                if st.button("❌", key=f"del_{fav}"):
                     favorites.remove(fav)
                     st.rerun()
 
