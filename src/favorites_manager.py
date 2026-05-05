@@ -14,4 +14,5 @@ class FavortiesManager:
         return {}
     
     def _write(self):
-        os.makedirs(os.path.dirname(self.filepath), exist)
+        os.makedirs(os.path.dirname(self.filepath), exist_ok=True)
+        
