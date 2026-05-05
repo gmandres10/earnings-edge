@@ -136,5 +136,6 @@ else:
     st.subheader("Notes & Favorites")
     note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
     if st.button("⭐ Add to Favorites"):
-        favorites.save
+        favorites.save(ss.ticker, note)
+        st.success(f"{ss.ticker} added to favorites!")
     
