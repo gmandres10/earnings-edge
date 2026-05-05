@@ -133,5 +133,6 @@ else:
         st.dataframe(ss.df, use_container_width=True)
     
     st.divider()
-    st
+    st.subheader("Notes & Favorites")
+    note = 
     
