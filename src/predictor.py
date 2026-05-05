@@ -11,4 +11,6 @@ class Predictor:
         df = self.analyzer.get_df()
         
         if df.empty:
-            
+            return 0.0
+        
+        recent = 
