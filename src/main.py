@@ -76,7 +76,9 @@ else:
     tab1, tab2 = st.tabs(["EPS Surprise % Per Quarter", "Earnings History"])
     
     with tab1:
-        st.wriite
+        st.wriite("### EPS Surprise % Per Quarter")
+        
+        plot_df
     
     
     
