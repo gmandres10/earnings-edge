@@ -76,7 +76,7 @@ else:
     tab1, tab2 = st.tabs(["EPS Surprise % Per Quarter", "Earnings History"])
     
     with tab1:
-        st.wriite("### EPS Surprise % Per Quarter")
+        st.write("### EPS Surprise % Per Quarter")
         
         plot_df = ss.df.sort_index(ascending=True).tail(12)
         
