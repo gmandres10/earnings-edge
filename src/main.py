@@ -132,4 +132,6 @@ else:
         st.write("### Earnings History")
         st.dataframe(ss.df, use_container_width=True)
     
+    st.divider()
+    st
     
