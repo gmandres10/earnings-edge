@@ -3,4 +3,5 @@ import json
 
 class FavortiesManager:
     
-    def_
+    def __init__(self, filepath):
+        self.filepath = 
