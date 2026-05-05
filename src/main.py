@@ -106,6 +106,9 @@ else:
         col_1.success("✅ Beat Quarters - Reported EPS above estimate")
         col_r.error("❌ Miss Quarters - Reported EPS below estimate")
         
+    with tab2: 
+        st.write("### Earnings History")
+        
     
     
     st.divider()
