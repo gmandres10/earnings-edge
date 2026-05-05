@@ -13,4 +13,5 @@ class Predictor:
         if df.empty:
             return 0.0
         
-        recent = 
+        recent = df.tall(4)
+        older = df.iloc[:-4] 
