@@ -17,4 +17,4 @@ class Predictor:
         older = df.iloc[:-4] if len(df) > 4 else pd.DataFrame()
         
         recent_beats = recent["Result"].eq("✅ Beat").sum() * 2
-        older_beats = older["Result"].eq("✅ Beat").sum()
+        older_beats = older["Result"].eq("✅ Beat").sum() if not older.empty else 0
