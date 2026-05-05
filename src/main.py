@@ -134,5 +134,5 @@ else:
     
     st.divider()
     st.subheader("Notes & Favorites")
-    note = 
+    note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
     
