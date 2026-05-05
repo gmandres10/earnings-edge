@@ -95,7 +95,8 @@ else:
             
         ax.set_xlabel("Earnings Date", color="white")
         ax.set_ylabel("Surprise %", color="white")
-        a
+        ax.tick_params(colors="white", axis="both")
+        ax.tick_params
     
     
     
