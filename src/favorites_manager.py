@@ -13,7 +13,7 @@ class FavoritesManager:
                 with open(self.filepath, "r") as f:
                     return json.load(f)
             except json.JSONDecodeError:
-                
+                return {}
         return {}
     
     def _write(self):
