@@ -84,7 +84,7 @@ else:
         fig.patch.set_facecolor("#0e1117")
         ax.set_facecolor("#0e1117")
         
-        colors = [""]
+        colors = ["#2ecc71" if r == "✅ Beat" else "#e74c3c" for r in plot_df["Result"]]
     
     
     
