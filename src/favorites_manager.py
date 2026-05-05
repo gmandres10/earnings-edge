@@ -29,4 +29,5 @@ class FavortiesManager:
     def get_note(self, ticker):
         return self._data.get(ticker, {}).get("note", "")
     
-    
+    def get_all(self):
+        return 
