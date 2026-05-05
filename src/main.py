@@ -63,7 +63,7 @@ with st.sidebar:
     else:
         st.caption("No favorites yet. Analyze a stock and click the ⭐ button to add it here.")
 
-if analyze_button and ticker_input:
+if (analyze_button and ticker_input) or ss.auto_analyze:
     ss.ticker = ticker_input
     
     with st.spinner(f"Fetching data for {ticker_input}..."):
