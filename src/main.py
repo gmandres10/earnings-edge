@@ -52,7 +52,12 @@ with st.sidebar:
                 if st.button(fav, use_container_width=True, key=f"fav_{fav}"):
                     ss.ticker = fav
                     ss.df = None
-                    
+                    ss.analyzer = None
+                    st.rerun()
+            with col_b:
+                if st.button("❌", use_container_width=True, key=f"remove_{fav}"):
+                    favorites.remove(fav)
+                    st.rerun()
 
 if analyze_button and ticker_input:
     ss.ticker = ticker_input
