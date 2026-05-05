@@ -54,6 +54,7 @@ with st.sidebar:
                     ss.ticker = fav
                     ss.df = None
                     ss.analyzer = None
+                    ss.auto_analyze 
                     st.rerun()
             with col_b:
                 if st.button("❌", key=f"del_{fav}"):
