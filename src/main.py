@@ -96,7 +96,11 @@ else:
         ax.set_xlabel("Earnings Date", color="white")
         ax.set_ylabel("Surprise %", color="white")
         ax.tick_params(colors="white", axis="both")
-        ax.tick_params
+        ax.tick_params(axis="x", rotation=45)
+        ax.spines[["top", "right", "left", "bottom"]].set_color("#333")
+        fig.tight_layout()
+        
+        
     
     
     
