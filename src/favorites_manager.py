@@ -15,4 +15,7 @@ class FavortiesManager:
     
     def _write(self):
         os.makedirs(os.path.dirname(self.filepath), exist_ok=True)
-        
+        with open(self.filepath, "w") as f:
+            json.dump(self._data, f, indent=2)
+            
+    
