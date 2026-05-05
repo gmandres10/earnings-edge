@@ -92,6 +92,9 @@ else:
         for bar, val in zip(bars, plot_df["Surprise %"]):
             y_pos = bar.get_height() + 0.3 if val >= 0 else bar.get_height() -1.5 
             ax.text(bar.get_x() + bar.get_width() / 2, y_pos, f"{val:+.1f}%", ha="center", color="white", fontsize=8)
+            
+        ax.set_xlabel("Earnings Date", color="white")
+        
     
     
     
