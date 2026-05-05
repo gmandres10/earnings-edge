@@ -111,39 +111,3 @@ else:
         st.dataframe(ss.df, use_container_width=True)
     
     
-    st.divider()
-    
-    st.write("### EPS Surprise % Per Quarter")
-    
-    plot_df = ss.df.sort_index(ascending=True).tail(12)
-    
-    fig, ax = plt.subplots(figsize=(12,5))
-    fig.patch.set_facecolor("#0e1117")
-    ax.set_facecolor("#0e1117")
-    
-    colors = ["#2ecc71" if r == "✅ Beat" else "#e74c3c" for r in plot_df["Result"]]
-    bars = ax.bar(plot_df.index.astype(str), plot_df["Surprise %"], color=colors, width = 0.6)
-    
-    ax.axhline(0, color="white", linewidth=0.8, linestyle="--", alpha=0.5)
-    
-    for bar, val in zip(bars, plot_df["Surprise %"]):
-        y_pos = bar.get_height() + 0.3 if val >= 0 else bar.get_height() - 1.5
-        ax.text(bar.get_x() + bar.get_width() / 2, y_pos, f"{val:+.1f}%", ha="center", color="white", fontsize=8)
-        
-    ax.set_xlabel("Earnings Date", color="white")
-    ax.set_ylabel("Surprise %", color="white")
-    ax.tick_params(colors="white", axis="both")
-    ax.tick_params(axis="x", rotation=45)
-    ax.spines[["top", "right", "left", "bottom"]].set_color("#333")
-    fig.tight_layout()
-    
-    st.pyplot(fig)
-    
-    col_1, col_r = st.columns(2)
-    col_1.success("✅ Beat Quarters - Reported EPS above estimate")
-    col_r.error("❌ Miss Quarters - Reported EPS below estimate")
-    
-    st.divider()
-    
-    st.write("### Earnings History")
-    st.dataframe(ss.df, use_container_width=True)
