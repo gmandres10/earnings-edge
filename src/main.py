@@ -100,7 +100,9 @@ else:
         ax.spines[["top", "right", "left", "bottom"]].set_color("#333")
         fig.tight_layout()
         
+        st.pyplot(fig)
         
+        col_1
     
     
     
