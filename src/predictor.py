@@ -5,4 +5,6 @@ class Predictor:
     def __init__(self, ticker, analyzer):
         self.ticker = ticker
         self.analyzer = analyzer
-        self._
+        self._stock = yf.Ticker(ticker)
+        
+    
