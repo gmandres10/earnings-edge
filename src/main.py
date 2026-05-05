@@ -73,7 +73,10 @@ else:
     col3.metric("Best Quarter", f"{ss.analyzer.best_quarter():+.1f}%")
     col4.metric("Worst Quarter", f"{ss.analyzer.worst_quarter():+.1f}%")
     
-    tab1, tab2 = st.tabs([])
+    tab1, tab2 = st.tabs(["EPS Surprise % Per Quarter", "Earnings History"])
+    
+    with tab1:
+        st.wriite
     
     
     
