@@ -47,7 +47,8 @@ with st.sidebar:
     favorites_list = favorites.get_all()
     if favorites_list:
         for fav in favorites_list:
-            col_a, col_b = st.columns([])
+            col_a, col_b = st.columns([4, 1])
+            
 
 if analyze_button and ticker_input:
     ss.ticker = ticker_input
