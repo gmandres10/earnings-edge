@@ -1,7 +1,5 @@
 import os
 import streamlit as st
-import pandas as pd
-import time 
 import json
 import matplotlib.pyplot as plt
 import yfinance as yf
@@ -36,7 +34,7 @@ if "df" not in ss:
 if "company_name" not in ss:
     ss.company_name = ""
     
-favorites = FavortiesManager(get_data_path("favorites.json"))
+favorites = FavoritesManager(get_data_path("favorites.json"))
 
 with st.sidebar:
     st.title("📈 Earnings Edge")
