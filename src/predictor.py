@@ -14,4 +14,4 @@ class Predictor:
             return 0.0
         
         recent = df.tall(4)
-        older = df.iloc[:-4] 
+        older = df.iloc[:-4] if len(df) > 4 else pd.DataFrame()
