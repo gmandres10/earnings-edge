@@ -9,7 +9,7 @@ import yfinance as yf
 
 
 from earnings_analyzer import EarningsAnalyzer
-from favorites_manager import FavortiesManager
+from favorites_manager import FavoritesManager
 
 APP_PATH = os.path.dirname(os.path.abspath(__file__))
 
