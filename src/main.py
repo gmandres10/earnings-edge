@@ -35,6 +35,8 @@ if "df" not in ss:
     
 if "company_name" not in ss:
     ss.company_name = ""
+    
+favorites = FavortiesManager(get_data_path("favorites.json"))
 
 with st.sidebar:
     st.title("📈 Earnings Edge")
@@ -43,7 +45,9 @@ with st.sidebar:
     st.divider()
     st.subheader("⭐ Favorites")
     favorites_list = favorites.get_all()
-    
+    if favorites_list:
+        for fav in favorites_list:
+            col_a, col_b = st.columns([])
 
 if analyze_button and ticker_input:
     ss.ticker = ticker_input
