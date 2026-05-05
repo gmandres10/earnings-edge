@@ -90,7 +90,7 @@ else:
         ax.axhline(0, color="white", linewidth=0.8, linestyle="--", alpha=0.5)
         
         for bar, val in zip(bars, plot_df["Surprise %"]):
-            y_pos = bar.get
+            y_pos = bar.get_height() + 0.3 if val >= 0 else 
     
     
     
