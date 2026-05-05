@@ -78,8 +78,8 @@ else:
     with tab1:
         st.wriite("### EPS Surprise % Per Quarter")
         
-        plot_df = ss.df.sort_index(ascending=True).tail(12
-                                                        )
+        plot_df = ss.df.sort_index(ascending=True).tail(12)
+        
     
     
     
