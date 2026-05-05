@@ -36,6 +36,9 @@ if "company_name" not in ss:
 
 if "analyzer" not in ss:
     ss.analyzer = None
+
+if "auto_analyze" not in ss:
+    ss.auto_analyze = False
         
 favorites = FavoritesManager(get_data_path("favorites.json"))
 
