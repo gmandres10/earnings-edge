@@ -50,9 +50,9 @@ with st.sidebar:
             col_a, col_b = st.columns([4, 1])
             with col_a:
                 if st.button(fav, use_container_width=True, key=f"fav_{fav}"):
+                    ss.ticker = fav
+                    ss.df = None
                     
-                    ticker_input = fav
-                    analyze_button = True
 
 if analyze_button and ticker_input:
     ss.ticker = ticker_input
