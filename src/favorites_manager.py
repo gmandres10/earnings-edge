@@ -10,7 +10,10 @@ class FavoritesManager:
     def _load_data(self):
         if os.path.exists(self.filepath):
             try:
-                with open(self.)
+                with open(self.filepath, "r") as f:
+                    return json.load(f)
+            except json.JSONDecodeError:
+                
         return {}
     
     def _write(self):
