@@ -32,4 +32,5 @@ class FavortiesManager:
     def get_all(self):
         return list(self._data.keys())
     
-    
+    def is_favorite(self, ticker):
+        return ticker in self._data
