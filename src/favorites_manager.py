@@ -19,4 +19,4 @@ class FavortiesManager:
             json.dump(self._data, f, indent=2)
             
     def save(self, ticker, note=""):
-        
+        self._data[ticker] = {}
