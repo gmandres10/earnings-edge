@@ -18,4 +18,5 @@ class FavortiesManager:
         with open(self.filepath, "w") as f:
             json.dump(self._data, f, indent=2)
             
-    
+    def save(self, ticker, note=""):
+        
