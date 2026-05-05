@@ -11,3 +11,4 @@ class FavortiesManager:
         if os.path.exists(self.filepath):
             with open(self.filepath, "r") as f:
                 return json.load(f)
+        return {}
