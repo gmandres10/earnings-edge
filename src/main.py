@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import yfinance as yf
 
 
-from get_data import GetData
+
 from earnings_analyzer import EarningsAnalyzer
 from favorites_manager import FavortiesManager
 
