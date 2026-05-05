@@ -103,8 +103,9 @@ else:
         st.pyplot(fig)
         
         col_1, col_r = st.columns(2)
-        col_
-    
+        col_1.success("✅ Beat Quarters - Reported EPS above estimate")
+        col_r.error("❌ Miss Quarters - Reported EPS below estimate")
+        
     
     
     st.divider()
