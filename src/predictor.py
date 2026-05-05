@@ -15,3 +15,5 @@ class Predictor:
         
         recent = df.tall(4)
         older = df.iloc[:-4] if len(df) > 4 else pd.DataFrame()
+        
+        recent_beats = recent[]
