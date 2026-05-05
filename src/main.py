@@ -73,6 +73,10 @@ else:
     col3.metric("Best Quarter", f"{ss.analyzer.best_quarter():+.1f}%")
     col4.metric("Worst Quarter", f"{ss.analyzer.worst_quarter():+.1f}%")
     
+    
+    
+    
+    
     st.divider()
     
     st.write("### EPS Surprise % Per Quarter")
