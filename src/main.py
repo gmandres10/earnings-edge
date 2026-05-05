@@ -33,7 +33,10 @@ if "df" not in ss:
     
 if "company_name" not in ss:
     ss.company_name = ""
-    
+
+if "analyzer" not in ss:
+    ss.analyzer = None
+        
 favorites = FavoritesManager(get_data_path("favorites.json"))
 
 with st.sidebar:
