@@ -177,6 +177,7 @@ else:
         st.write("### Beat Probability Explanation")
         df_display = ss.analyzer.get_df()
         recent = df_display.head(4)
+        
     st.divider()
     st.subheader("Notes & Favorites")
     note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
