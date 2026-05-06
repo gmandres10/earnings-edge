@@ -72,3 +72,12 @@ class Predictor:
             return "🟡 Coin Flip"
         else:
             return "🔴 Likely Miss"
+        
+    def next_earnings_date(self):
+        try:
+            df = self._stock.earnings_dates
+            if df is None or df.empty:
+                return None
+            
+            today = pd.Timestamp.now(tz=df.index.tz)
+            
