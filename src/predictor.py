@@ -47,4 +47,8 @@ class Predictor:
             calls = chain.calls
             puts = chain.puts
             
-            if calls
+            if calls.empty or puts.empty:
+                return None
+            
+            calls["diff"] = (calls["strike"] - current_price).abs()
+            atm_call = 
