@@ -148,6 +148,7 @@ else:
         st.write("### Earnings Beat Prediction")
         
         pred = ss.predictor
+        prob = pred.beat_probability()
         
             
     st.divider()
