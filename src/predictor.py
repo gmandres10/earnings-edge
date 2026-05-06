@@ -80,4 +80,4 @@ class Predictor:
                 return None
             
             today = pd.Timestamp.now(tz=df.index.tz)
-            
+            future
