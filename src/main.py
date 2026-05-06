@@ -168,7 +168,7 @@ else:
         
         with col2:
             if move:
-                st.metric("Implied Move (Next Earnings)", f"±{move:.2f}%")
+                st.metric("Implied Move (Next Earnings)", f"±{move:.1f}%")
                 st.caption("Estimated stock price move based on current option prices")
     st.divider()
     st.subheader("Notes & Favorites")
