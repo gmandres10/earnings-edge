@@ -40,6 +40,9 @@ if "analyzer" not in ss:
 
 if "auto_analyze" not in ss:
     ss.auto_analyze = False
+    
+if "predictor" not in ss:
+    ss.predictor = None
         
 favorites = FavoritesManager(get_data_path("favorites.json"))
 
