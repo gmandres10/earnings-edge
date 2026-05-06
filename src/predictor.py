@@ -30,4 +30,6 @@ class Predictor:
         
         return (total_beats / total_weight) * 100
     
-    
+    def implied_move(self):
+        try:
+            current_price = self._stock.info["currentPrice"]
