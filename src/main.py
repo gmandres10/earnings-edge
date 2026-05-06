@@ -88,6 +88,7 @@ if (analyze_button and ticker_input) or ss.auto_analyze:
                 analyzer = EarningsAnalyzer(df)
                 ss.df = analyzer.get_df()
                 ss.analyzer = analyzer
+                ss.predictor = Predictor(ss.ticker, analyzer)
         except Exception as e:
             st.error(f"Error : {e}")
             ss.df = None
