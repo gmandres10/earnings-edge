@@ -8,6 +8,7 @@ import yfinance as yf
 
 from earnings_analyzer import EarningsAnalyzer
 from favorites_manager import FavoritesManager
+from predictor import Predictor
 
 APP_PATH = os.path.dirname(os.path.abspath(__file__))
 
