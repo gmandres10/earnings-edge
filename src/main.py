@@ -144,6 +144,9 @@ else:
         st.write("### Earnings History")
         st.dataframe(ss.df, use_container_width=True)
     
+    with tab3:
+        st
+            
     st.divider()
     st.subheader("Notes & Favorites")
     note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
