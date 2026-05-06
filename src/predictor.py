@@ -25,4 +25,9 @@ class Predictor:
         total_weight = recent_total + older_total
         total_beats = recent_beats + older_beats
         
-        if total_we
+        if total_weight == 0:
+            return 0.0
+        
+        return (total_beats / total_weight) * 100
+    
+    
