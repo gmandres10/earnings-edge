@@ -67,7 +67,8 @@ class Predictor:
     def prediction_label(self):
         prob = self.beat_probability()
         if prob >= 70:
-            return "High Probability of Beat"
+            return "🟢 High Probability of Beat"
         elif prob >= 45:
-            return "Coin Flip"
+            return "🟡 Coin Flip"
         else:
+            return "Likely Miss"
