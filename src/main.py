@@ -107,7 +107,7 @@ else:
     
     st.divider()
     
-    tab1, tab2, tab3 = st.tabs(["EPS Surprise % Per Quarter", "Earnings History"])
+    tab1, tab2, tab3 = st.tabs(["EPS Surprise % Per Quarter", "Earnings History", "Prediction"])
     
     with tab1:
         st.write("### EPS Surprise % Per Quarter")
