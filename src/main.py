@@ -145,7 +145,7 @@ else:
         st.dataframe(ss.df, use_container_width=True)
     
     with tab3:
-        st
+        st.write("")
             
     st.divider()
     st.subheader("Notes & Favorites")
