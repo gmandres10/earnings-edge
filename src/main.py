@@ -165,7 +165,11 @@ else:
             st.metric("Predicted Beat Probability", f"{prob:.0f}%")
             st.write(f"Verdict: {label}")
             st.caption("Prediction based on historical earnings performance with more weight on recent quarters")
-            
+        
+        with col2:
+            if move:
+                st.metric("Implied Move (Next Earnings)", f"±{move:.2f}%")
+                st.caption("Estimated stock price move based on current option prices")
     st.divider()
     st.subheader("Notes & Favorites")
     note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
