@@ -180,7 +180,9 @@ else:
         older = df_display.iloc[:-4] if len(df_display) > 4 else None
         
         col_a, col_b = st.columns(2)
-        
+        with col_a:
+            recent
+            
     st.divider()
     st.subheader("Notes & Favorites")
     note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
