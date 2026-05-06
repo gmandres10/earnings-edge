@@ -178,6 +178,9 @@ else:
         df_display = ss.analyzer.get_df()
         recent = df_display.tail(4)
         older = df_display.iloc[:-4] if len(df_display) > 4 else None
+        
+        col_a, col_b = st.columns(2)
+        
     st.divider()
     st.subheader("Notes & Favorites")
     note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
