@@ -21,3 +21,5 @@ class Predictor:
         
         recent_total = len(recent) * 2
         older_total = len(older) if not older.empty else 0
+        
+        total
