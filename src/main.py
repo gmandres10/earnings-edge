@@ -162,7 +162,8 @@ else:
         
         col1, col2 = st.columns(2)
         with col1:
-            st.metric("Predicted Beat Probability", f"{prob:.1f}%", label)
+            st.metric("Predicted Beat Probability", f"{prob:.0f}%")
+            st
             
     st.divider()
     st.subheader("Notes & Favorites")
