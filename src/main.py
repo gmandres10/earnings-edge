@@ -174,7 +174,7 @@ else:
                 st.warning("Implied Move: Not Available")
         st.divider()
         
-        st.
+        st.write("")
     st.divider()
     st.subheader("Notes & Favorites")
     note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
