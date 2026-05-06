@@ -145,7 +145,10 @@ else:
         st.dataframe(ss.df, use_container_width=True)
     
     with tab3:
-        st.write("")
+        st.write("### Earnings Beat Prediction")
+        
+        pred = ss.predictor
+        
             
     st.divider()
     st.subheader("Notes & Favorites")
