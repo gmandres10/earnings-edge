@@ -59,4 +59,9 @@ class Predictor:
             straddle_price = atm_call["lastPrice"] + atm_put["lastPrice"]
             implied_move_pct = (straddle_price / current_price) * 100
             
-            return round
+            return round(implied_move_pct, 2)
+        
+        except Exception:
+            return None
+        
+    def 
