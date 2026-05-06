@@ -71,4 +71,4 @@ class Predictor:
         elif prob >= 45:
             return "🟡 Coin Flip"
         else:
-            return "Likely Miss"
+            return "🔴 Likely Miss"
