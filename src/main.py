@@ -151,7 +151,7 @@ else:
         prob = pred.beat_probability()
         label = pred.prediction_label()
         move = pred.implied_move()
-        da
+        date = 
             
     st.divider()
     st.subheader("Notes & Favorites")
