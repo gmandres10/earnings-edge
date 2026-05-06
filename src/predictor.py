@@ -32,4 +32,4 @@ class Predictor:
     
     def implied_move(self):
         try:
-            current_price = self._stock.info["currentPrice"]
+            current_price = self._stock.info["currentPrice") or self._stock.info.get("regularMarketPrice")
