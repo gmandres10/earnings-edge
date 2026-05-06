@@ -178,7 +178,9 @@ else:
         df_display = ss.analyzer.get_df()
         recent = df_display.tail(4)
         older = df_display.iloc[:-4] if len(df_display) > 4 else None
-            note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
+    st.divider()
+    st.subheader("Notes & Favorites")
+    note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
     if st.button("⭐ Add to Favorites"):
         favorites.save(ss.ticker, note)
         st.success(f"{ss.ticker} added to favorites!")
