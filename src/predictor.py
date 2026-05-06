@@ -22,4 +22,7 @@ class Predictor:
         recent_total = len(recent) * 2
         older_total = len(older) if not older.empty else 0
         
-        total
+        total_weight = recent_total + older_total
+        total_beats = recent_beats + older_beats
+        
+        if total_we
