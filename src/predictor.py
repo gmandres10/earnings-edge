@@ -19,3 +19,5 @@ class Predictor:
         recent_beats = recent["Result"].eq("✅ Beat").sum() * 2
         older_beats = older["Result"].eq("✅ Beat").sum() if not older.empty else 0
         
+        recent_total = len(recent) * 2
+        older_total = len(older) if not older.empty else 0
