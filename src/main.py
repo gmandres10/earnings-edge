@@ -181,7 +181,7 @@ else:
         
         col_a, col_b = st.columns(2)
         with col_a:
-            recent
+            recent_rate = recent["Result"].eq("✅ Beat").mean() * 100
             
     st.divider()
     st.subheader("Notes & Favorites")
