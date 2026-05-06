@@ -176,7 +176,8 @@ else:
         
         st.write("### Beat Probability Explanation")
         df_display = ss.analyzer.get_df()
-        recent = df_display.head(4)
+        recent = df_display.tail(4)
+        older = df_display.iloc[:-4] if len(df_display) > 4 else pd.DataFrame()
         
     st.divider()
     st.subheader("Notes & Favorites")
