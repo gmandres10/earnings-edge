@@ -42,4 +42,9 @@ class Predictor:
                 return None
             
             expiry = expirations[0]
-            chain = self
+            chain = self._stock.option_chain(expiry)
+            
+            calls = chain.calls
+            puts = chain.puts
+            
+            if calls
