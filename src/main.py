@@ -154,7 +154,7 @@ else:
         date = pred.next_earnings_date()
         
         if date:
-            st.info(f"Next Earnings Date: {date.strftime('%Y-%m-%d')}")
+            st.info(f"Next Earnings Date: {date.strftime('%B %')}")
             
     st.divider()
     st.subheader("Notes & Favorites")
