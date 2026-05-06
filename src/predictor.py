@@ -34,3 +34,12 @@ class Predictor:
         try:
             current_price = self._stock.info.get("currentPrice") or self._stock.info.get("regularMarketPrice")
             
+            if not current_price:
+                return None
+            
+            expirations = self._stock.options
+            if not expirations:
+                return None
+            
+            expiry = expirations[0]
+            chain = self
