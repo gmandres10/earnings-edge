@@ -151,7 +151,10 @@ else:
         prob = pred.beat_probability()
         label = pred.prediction_label()
         move = pred.implied_move()
-        date = 
+        date = pred.next_earnings_date()
+        
+        if date:
+            st.info(f"Next Earnings Date: {date.strftime('%Y-%m-%d')}")
             
     st.divider()
     st.subheader("Notes & Favorites")
