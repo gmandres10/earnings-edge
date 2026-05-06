@@ -51,4 +51,12 @@ class Predictor:
                 return None
             
             calls["diff"] = (calls["strike"] - current_price).abs()
-            atm_call = 
+            atm_call = calls.loc[calls["diff"].idxmin()]
+            
+            puts["diff"] = (puts["strike"] - current_price).abs()
+            atm_put = puts.loc[puts["diff"].idxmin()]
+            
+            straddle_price = atm_call["lastPrice"] + atm_put["lastPrice"]
+            implied_move_pct = (straddle_price / current_price) * 100
+            
+            return round
