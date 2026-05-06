@@ -69,4 +69,5 @@ class Predictor:
         if prob >= 70:
             return "High Probability of Beat"
         elif prob >= 45:
-            return 
+            return "Coin Flip"
+        else:
