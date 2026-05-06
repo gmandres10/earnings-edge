@@ -65,4 +65,5 @@ class Predictor:
             return None
         
     def prediction_label(self):
+        prob = self.beat_probability()
         
