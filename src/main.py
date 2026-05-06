@@ -182,6 +182,11 @@ else:
         col_a, col_b = st.columns(2)
         with col_a:
             recent_rate = recent["Result"].eq("✅ Beat").mean() * 100
+            st.metric("Recent 4 Quarters Beat Rate", f"{recent_rate:.0f}%")
+        with col_b:
+            if older is not None and not older.empty:
+                older_rate = older["Result"].eq("✅ Beat").mean() * 100
+                st.metric("Older Quarters Beat Rate", f"{older_rate:.0f}%")
             
     st.divider()
     st.subheader("Notes & Favorites")
