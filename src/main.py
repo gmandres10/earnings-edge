@@ -158,6 +158,10 @@ else:
         else:
             st.info("Next Earnings Date: Not Available")
             
+        st.divider()
+        
+        col1
+            
     st.divider()
     st.subheader("Notes & Favorites")
     note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
