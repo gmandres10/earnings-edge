@@ -13,7 +13,7 @@ class Predictor:
         if df.empty:
             return 0.0
         
-        recent = df.tall(4)
+        recent = df.tail(4)
         older = df.iloc[:-4] if len(df) > 4 else pd.DataFrame()
         
         recent_beats = recent["Result"].eq("✅ Beat").sum() * 2
