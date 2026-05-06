@@ -172,6 +172,8 @@ else:
                 st.caption("Estimated stock price move based on current option prices")
             else:
                 st.warning("Implied Move: Not Available")
+        st.divider()
+        
     st.divider()
     st.subheader("Notes & Favorites")
     note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
