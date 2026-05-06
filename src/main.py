@@ -164,7 +164,7 @@ else:
         with col1:
             st.metric("Predicted Beat Probability", f"{prob:.0f}%")
             st.write(f"Verdict: {label}")
-            st.caption("Prediction based on historical earnings performance with more weight on recent quarters, and current options market data.")
+            st.caption("Prediction based on historical earnings performance with more weight on recent quarters")
             
     st.divider()
     st.subheader("Notes & Favorites")
