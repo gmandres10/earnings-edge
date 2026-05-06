@@ -160,7 +160,7 @@ else:
             
         st.divider()
         
-        col1
+        col1, col2 = st.columns(2)
             
     st.divider()
     st.subheader("Notes & Favorites")
