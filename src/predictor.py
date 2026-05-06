@@ -80,4 +80,11 @@ class Predictor:
                 return None
             
             today = pd.Timestamp.now(tz=df.index.tz)
-            future
+            future_dates = df[df.index >= today]
+            
+            if future_dates.empty:
+                return None
+            
+            return future_dates.index.min()
+        except Exception:
+            return None
