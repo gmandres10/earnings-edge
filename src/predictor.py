@@ -64,4 +64,5 @@ class Predictor:
         except Exception:
             return None
         
-    def 
+    def prediction_label(self):
+        
