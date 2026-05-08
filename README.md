@@ -1,83 +1,79 @@
-# Earnings Edge
+📈 Earnings Edge
+A Streamlit dashboard that pulls live earnings history for any stock ticker and analyzes how the company has historically performed around earnings events. Search any ticker and instantly see whether the company consistently beats or misses analyst estimates, how large the surprises have been, and what the options market is implying for the next report.
 
-Earnings Edge is a Streamlit app for exploring a stock's earnings history, calculating EPS surprise metrics, and estimating a simple "beat probability" signal for upcoming earnings.
+🚀 How to Run
+# 1. Install dependencies
+pip install -r requirements.txt
 
-## Features
+# 2. Run the app
+streamlit run dist/main.py
 
-- Analyze historical earnings results for any supported ticker (for example: `AAPL`, `MSFT`, `GOOGL`).
-- View beat rate, average EPS surprise, best quarter, and worst quarter.
-- Visualize quarterly EPS surprises in a chart.
-- See a basic prediction panel (beat probability, verdict label, implied move, next earnings date).
-- Save favorites and personal notes per ticker.
+✨ Features
 
-## Requirements
+🔍 Live Ticker Search — search any publicly traded stock (AAPL, TSLA, NVDA, etc.)
+📊 EPS Surprise Chart — color-coded bar chart showing beat (green) vs miss (red) per quarter
+📈 KPI Metrics — beat rate, average EPS surprise, best and worst quarter at a glance
+🔮 Earnings Prediction — weighted beat probability with recent quarters counting double
+📉 Implied Move — expected price move pulled live from the options market
+⭐ Favorites — save tickers with personal notes, persisted between sessions
+📋 Raw Data Table — full earnings history with EPS estimate, reported EPS, surprise %, and result
+💾 Persistent Storage — favorites and notes saved to disk as JSON, survive app restarts
 
-- Python 3.10+ recommended.
-- Internet access (the app fetches market data from Yahoo Finance via `yfinance`).
 
-## Installation
+🖥️ App Preview
+SectionDescriptionSidebarTicker search, Analyze button, saved favorites listKPI RowBeat rate, avg surprise, best/worst quarterEPS Surprises TabInteractive bar chart of last 12 quartersPrediction TabBeat probability, verdict, implied move from optionsEarnings History TabFull raw data tableNotes SectionPersonal notes saved per ticker
 
-From the project root:
+📁 File Structure
+earnings-edge/
+│
+├── README.md                   ← You are here
+├── demo.mp4                    ← App demo video
+│
+├── src/                        ← Development zone
+│   ├── main.py                 ← Streamlit app entry point
+│   ├── earnings_analyzer.py    ← Data cleaning & EPS calculations
+│   ├── favorites_manager.py    ← Read/write favorites to disk
+│   ├── predictor.py            ← Beat probability & implied move
+│   └── data/
+│       └── favorites.json      ← Saved tickers and notes (auto-generated)
+│
+└── dist/                       ← Production zone (graded version)
+    ├── main.py                 ← Stable copy of src/main.py
+    ├── earnings_analyzer.py    ← Stable copy
+    ├── favorites_manager.py    ← Stable copy
+    ├── predictor.py            ← Stable copy
+    └── data/
+        └── favorites.json      ← Stable copy of saved data
 
-1. Create and activate a virtual environment (recommended).
-2. Install dependencies:
-   - `pip install -r requirements.txt`
+🗂️ What Each File Does
+FilePurposemain.pyStreamlit UI — sidebar, charts, tabs, session stateearnings_analyzer.pyCleans raw yfinance data, computes surprise %, beat/missfavorites_manager.pySaves and loads favorites + notes from favorites.jsonpredictor.pyCalculates weighted beat probability and options implied movedata/favorites.jsonAuto-generated JSON file storing saved tickers and notes
 
-If you do not have a `requirements.txt`, install the main packages manually:
+🛠️ Tech Stack
+ToolPurposePython 3.xCore languageStreamlitWeb app frameworkyfinanceLive stock & options data from Yahoo FinancePandasData cleaning and manipulationMatplotlibEPS surprise bar chartJSONPersistent storage for favorites and notes
 
-- `pip install streamlit yfinance pandas matplotlib`
+📦 Dependencies
+streamlit
+yfinance
+pandas
+matplotlib
+lxml
+Install all at once:
+bashpip install streamlit yfinance pandas matplotlib lxml
 
-## How To Run
+💡 User Guide
 
-Run from the project root folder.
+Search a ticker — type a stock symbol in the sidebar (e.g. AAPL) and click Analyze Earnings
+Read the KPIs — check beat rate and average surprise at the top
+Explore the chart — green bars = beat, red bars = miss, labels show exact surprise %
+Check the prediction — click the Prediction tab for beat probability and implied move
+Save a favorite — scroll down, write a note, and click ⭐ Add to Favorites
+Load a favorite — click any saved ticker in the sidebar to instantly reload its analysis
 
-- Development version (`src`):
-  - `streamlit run src/main.py`
-- Graded version (`dist`):
-  - `streamlit run dist/main.py`
 
-## User Guide (Help)
+🔮 Next Steps
 
-1. Enter a ticker symbol in the sidebar.
-2. Click **Analyze Earnings**.
-3. Review:
-   - **EPS Surprise % Per Quarter** tab for charted performance.
-   - **Earnings History** tab for the data table.
-   - **Prediction** tab for beat probability and implied move estimate.
-4. Add notes in **Personal Note for this Stock**.
-5. Click **Add to Favorites** to save the ticker and note.
-6. Reopen saved favorites from the sidebar list.
-
-## Development and Grading Workflow
-
-- `src/` is the development environment:
-  - Experiment freely.
-  - It is acceptable to iterate, refactor, and temporarily break behavior while testing ideas.
-- `dist/` is the graded environment:
-  - Keep it stable and clean.
-  - Only copy code from `src/` into `dist/` after you have validated that the `src/` version works correctly.
-  - `dist/` should represent your final documented and reliable implementation.
-
-## File Structure
-
-- `src/` - development source code.
-  - `src/main.py` - Streamlit app entry point (development version).
-  - `src/earnings_analyzer.py` - earnings cleaning and metric calculations.
-  - `src/predictor.py` - beat probability, implied move, and next earnings date logic.
-  - `src/favorites_manager.py` - save/load favorites and notes from JSON.
-  - `src/get_data.py` - helper wrapper around `yfinance` data fetching.
-  - `src/data/favorites.json` - persisted favorites and notes for `src`.
-- `dist/` - documented and graded-ready source code.
-  - `dist/main.py` - Streamlit app entry point for the graded build.
-  - `dist/earnings_analyzer.py` - documented earnings analysis module.
-  - `dist/predictor.py` - documented prediction module.
-  - `dist/favorites_manager.py` - documented favorites persistence module.
-  - `dist/get_data.py` - documented data access helper.
-  - `dist/data/favorites.json` - persisted favorites and notes for `dist`.
-- `README.md` - project documentation and usage instructions.
-
-## Troubleshooting
-
-- **No earnings data found**: the ticker may be invalid, delisted, or missing data from the provider.
-- **Slow load times**: market/API responses can vary; retry after a few seconds.
-- **Missing package errors**: install dependencies again in the active environment.
+ Slider to control how many quarters appear on the chart
+ Price reaction chart — show how the stock moved the day after earnings
+ @st.cache_data to avoid re-fetching the same ticker on every rerun
+ Comparison mode — analyze two tickers side by side
+ Export to CSV button for the earnings history table
