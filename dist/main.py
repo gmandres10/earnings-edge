@@ -209,7 +209,7 @@ else:
 
     st.divider()
     st.subheader("Notes & Favorites")
-    note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
+    note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker), key=f"note_{ss.ticker}")
     if st.button("⭐ Add to Favorites"):
         favorites.save(ss.ticker, note)
         st.success(f"{ss.ticker} added to favorites!")
