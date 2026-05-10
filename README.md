@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Earnings Edge
 
 Earnings Edge is a Streamlit app that analyzes a stock's historical earnings surprises and gives a simple probability-style signal for whether the company may beat earnings next quarter.
