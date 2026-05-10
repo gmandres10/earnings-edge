@@ -1,22 +1,27 @@
-"""Transform raw Yahoo Finance earnings tables into labeled surprise metrics."""
+"""Normalize Yahoo ``earnings_dates`` tables into surprise % and beat/miss labels."""
 
 import pandas as pd
 
 
 class EarningsAnalyzer:
-    """Compute beat/miss labels and summary stats from quarterly earnings rows.
+    """Derive ``Surprise %``, ``Result``, and cached summary statistics from raw earnings rows.
 
-    Expects the same columns as ``yfinance.Ticker.earnings_dates`` after ingestion:
-    datetime index ``Earnings Date``, ``EPS Estimate``, ``Reported EPS``, optional
-    ``Surprise(%)`` from Yahoo (dropped here in favor of a derived column).
+    Parameters
+    ----------
+    raw_df
+        DataFrame from ``yfinance`` or from ``FavoritesManager.get_cached_df`` (same columns).
+    skip_clean
+        If True, treat *raw_df* as already cleaned (used only for specialist call sites).
     """
 
-    def __init__(self, raw_df):
-        """Normalize *raw_df* into ``self.df`` (sorted newest-first by earnings date)."""
-        self.df = self._clean_data(raw_df)
+    def __init__(self, raw_df, skip_clean=False):
+        if skip_clean:
+            self.df = raw_df
+            self._beat_rate = raw_df["Result"].eq("✅ Beat").mean() * 100
+        else:
+            self.df = self._clean_data(raw_df)
 
     def _clean_data(self, df):
-        """Drop incomplete rows, compute surprise % and human-readable beat/miss."""
         df = df.dropna(subset=["EPS Estimate", "Reported EPS"]).copy()
 
         df = df.sort_index(ascending=False)
@@ -35,25 +40,19 @@ class EarningsAnalyzer:
         return df
 
     def get_df(self):
-        """Return the cleaned dataframe (DatetimeIndex preserved)."""
         return self.df
 
     def beat_rate(self):
-        """Percentage of quarters with positive EPS surprise."""
         return self._beat_rate
 
     def average_surprise(self):
-        """Mean of ``Surprise %`` across retained quarters."""
         return self.df["Surprise %"].mean()
 
     def best_quarter(self):
-        """Largest ``Surprise %``."""
         return self.df["Surprise %"].max()
 
     def worst_quarter(self):
-        """Smallest ``Surprise %``."""
         return self.df["Surprise %"].min()
 
     def quarters_analyzed(self):
-        """Row count after cleaning."""
         return len(self.df)

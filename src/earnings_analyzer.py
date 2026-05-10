@@ -2,8 +2,12 @@ import pandas as pd
 
 class EarningsAnalyzer:
     
-    def __init__(self, raw_df):
-        self.df = self._clean_data(raw_df)
+    def __init__(self, raw_df, skip_clean=False):
+        if skip_clean:
+            self.df = raw_df
+            self._beat_rate = raw_df["Result"].eq("✅ Beat").mean() * 100
+        else:
+            self.df = self._clean_data(raw_df)
         
     def _clean_data(self, df):
         

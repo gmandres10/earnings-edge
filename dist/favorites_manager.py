@@ -1,4 +1,4 @@
-"""JSON-backed favorites: ticker metadata plus a serialized earnings dataframe snapshot."""
+"""JSON persistence for favorite tickers: notes, summary stats, and cached earnings rows."""
 
 import json
 import os
@@ -8,17 +8,18 @@ import pandas as pd
 
 
 class FavoritesManager:
-    """Load/save ``favorites.json`` with notes and cached analyzer-ready history.
+    """Read/write ``favorites.json`` next to the running app (``dist/data`` or ``src/data``).
 
-    On ``save``, the analyzer dataframe is reset-indexed so ``Earnings Date`` becomes
-    strings for JSON serialization. ``get_cached_df`` reverses that for in-memory use.
+    ``save`` serializes the analyzer dataframe with string dates for ``json.dump``.
+    ``get_cached_df`` restores a ``DatetimeIndex``; ``utc=True`` is required because
+    Yahoo export strings mix offsets (e.g. -04/-05) and naive parsing fails otherwise.
     """
 
-    def __init__(self, filepath):
+    def __init__(self, filepath: str):
         self.filepath = filepath
         self._data = self._load_data()
 
-    def _load_data(self):
+    def _load_data(self) -> dict:
         if os.path.exists(self.filepath):
             try:
                 with open(self.filepath, "r", encoding="utf-8") as f:
@@ -27,17 +28,13 @@ class FavoritesManager:
                 return {}
         return {}
 
-    def _write(self):
+    def _write(self) -> None:
         os.makedirs(os.path.dirname(self.filepath), exist_ok=True)
         with open(self.filepath, "w", encoding="utf-8") as f:
             json.dump(self._data, f, indent=2)
 
     def save(self, ticker, company_name, beat_rate, avg_surprise, df, note=""):
-        """Persist ticker metadata and a row-oriented copy of ``df``.
-
-        ``df`` must be the cleaned dataframe from ``EarningsAnalyzer`` (DatetimeIndex).
-        ``round`` guarantees JSON-friendly plain floats for summary fields.
-        """
+        """Persist metadata plus row records. ``round`` keeps JSON as plain Python floats."""
         df_copy = df.reset_index()
         df_copy["Earnings Date"] = df_copy["Earnings Date"].astype(str)
         self._data[ticker] = {
@@ -51,7 +48,6 @@ class FavoritesManager:
         self._write()
 
     def remove(self, ticker):
-        """Delete a ticker from the store."""
         self._data.pop(ticker, None)
         self._write()
 
@@ -59,22 +55,20 @@ class FavoritesManager:
         return self._data.get(ticker, {}).get("note", "")
 
     def get_all(self):
-        """All favorite ticker symbols (dict keys)."""
         return list(self._data.keys())
 
     def get_info(self, ticker):
-        """Full entry for sidebar display (includes serialized ``data`` list)."""
         return self._data.get(ticker, {})
 
     def get_cached_df(self, ticker):
-        """Rebuild the indexed dataframe from JSON records, or ``None`` if missing/invalid."""
+        """Return analyst-ready dataframe or ``None`` if missing/invalid snapshot."""
         info = self._data.get(ticker, {})
         records = info.get("data", None)
         if not records:
             return None
         try:
             df = pd.DataFrame(records)
-            df["Earnings Date"] = pd.to_datetime(df["Earnings Date"])
+            df["Earnings Date"] = pd.to_datetime(df["Earnings Date"], utc=True)
             df = df.set_index("Earnings Date")
             return df
         except Exception:

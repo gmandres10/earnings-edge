@@ -10,7 +10,7 @@ class GetData:
     def get_earnings_result(self):
         df = self._stock.earnings_dates
         if df is None or df.empty:
-            return ValueError(f"No earnings data found for ticker {self.ticker}.")
+            raise ValueError(f"No earnings data found for ticker {self.ticker}.")
         return df
     
     def get_company_name(self):

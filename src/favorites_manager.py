@@ -54,9 +54,10 @@ class FavoritesManager:
         records = info.get("data", None)
         if not records:
             return None
-        try: 
+        try:
             df = pd.DataFrame(records)
-            df["Earnings Date"]= pd.to_datetime(df["Earnings Date"])
+            # Yahoo rows use mixed offset strings (-04/-05); vectorized parse requires a single tz.
+            df["Earnings Date"] = pd.to_datetime(df["Earnings Date"], utc=True)
             df = df.set_index("Earnings Date")
             return df
         except Exception:

@@ -1,14 +1,14 @@
-"""Heuristic beat outlook and shallow options-implied move from Yahoo Finance."""
+"""Heuristic beat outlook and rough implied move from options (Yahoo Finance)."""
 
 import pandas as pd
 import yfinance as yf
 
 
 class Predictor:
-    """Combines cached earnings history with live quote/options where requested.
+    """Combine ``EarningsAnalyzer`` history with optional live Yahoo quote/options.
 
-    ``beat_probability`` and ``prediction_label`` use only ``analyzer``.
-    ``implied_move`` and ``next_earnings_date`` call Yahoo (network-bound).
+    ``beat_probability`` / ``prediction_label`` use only the analyzer (no network).
+    ``implied_move`` / ``next_earnings_date`` call Yahoo and may return ``None``.
     """
 
     def __init__(self, ticker, analyzer):
@@ -17,7 +17,7 @@ class Predictor:
         self._stock = yf.Ticker(ticker)
 
     def beat_probability(self):
-        """Weighted beat rate: last 4 quarters count double vs older quarters."""
+        """Weighted beat rate: most recent four quarters counted double."""
         df = self.analyzer.get_df()
 
         if df.empty:
@@ -41,7 +41,7 @@ class Predictor:
         return (total_beats / total_weight) * 100
 
     def implied_move(self):
-        """Rough straddle-implied pct move: ATM call+put ``lastPrice`` / spot."""
+        """Nearest-expiry ATM straddle last prices as % of spot (rough proxy)."""
         try:
             current_price = self._stock.info.get("currentPrice") or self._stock.info.get(
                 "regularMarketPrice"
@@ -78,7 +78,6 @@ class Predictor:
             return None
 
     def prediction_label(self):
-        """Bucketed copy line for UI from ``beat_probability()``."""
         prob = self.beat_probability()
         if prob >= 70:
             return "🟢 High Probability of Beat"
@@ -87,7 +86,6 @@ class Predictor:
         return "🔴 Likely Miss"
 
     def next_earnings_date(self):
-        """Earliest scheduled earnings strictly on/after *now* in the index TZ."""
         try:
             df = self._stock.earnings_dates
             if df is None or df.empty:

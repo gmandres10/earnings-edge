@@ -1,9 +1,5 @@
-"""Streamlit entrypoint: earnings analysis dashboard with favorites and predictions.
+"""Streamlit dashboard: earnings surprises, heuristic beat outlook, favorites with disk cache."""
 
-Logic matches ``src.main``; this tree adds documentation and readability only.
-"""
-
-import json
 import os
 
 import matplotlib.pyplot as plt
@@ -18,7 +14,7 @@ APP_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_data_path(filename: str) -> str:
-    """Return absolute path under ``dist/data/<filename>``."""
+    """Absolute path under ``dist/data``. Independent from ``src/data`` for the playground copy."""
     return os.path.join(APP_PATH, "data", filename)
 
 
@@ -31,7 +27,7 @@ st.set_page_config(
 
 ss = st.session_state
 
-# Default session keys so downstream code can assume they exist.
+# --- Session defaults (persisted by Streamlit) ---
 if "ticker" not in ss:
     ss.ticker = "AAPL"
 
@@ -47,8 +43,9 @@ if "analyzer" not in ss:
 if "auto_analyze" not in ss:
     ss.auto_analyze = False
 
-if "predictor" not in ss:
-    ss.predictor = None
+if "analysis_source" not in ss:
+    ss.analysis_source = None
+
 
 favorites = FavoritesManager(get_data_path("favorites.json"))
 
@@ -73,13 +70,13 @@ with st.sidebar:
                     f"Avg Surprise: {info.get('avg_surprise', 0):+}% | "
                     f"Saved: {info.get('date_saved', '')}"
                 )
-                # Hydrate analyzer/predictor from disk-backed snapshot (no Yahoo refetch).
                 if st.button(f"Load {fav}", use_container_width=True, key=f"fav_{fav}"):
+                    # Mark source as JSON; rebuild df each run (see below). Do not store yfinance Ticker in session.
                     ss.ticker = fav
                     ss.company_name = info.get("company_name", fav)
-                    ss.df = favorites.get_cached_df(fav)
-                    ss.analyzer = EarningsAnalyzer(ss.df) if ss.df is not None else None
-                    ss.predictor = Predictor(fav, ss.analyzer) if ss.analyzer is not None else None
+                    ss.analysis_source = "favorite_json"
+                    ss.df = None
+                    ss.analyzer = None
                     st.rerun()
             with col_b:
                 if st.button("❌", key=f"del_{fav}"):
@@ -88,50 +85,78 @@ with st.sidebar:
     else:
         st.caption("No favorites yet. Analyze a stock and click the ⭐ button to add it here.")
 
+# --- Live Yahoo ingest ---
 if (analyze_button and ticker_input) or ss.auto_analyze:
     ss.auto_analyze = False
     if analyze_button:
         ss.ticker = ticker_input
 
-    with st.spinner(f"Fetching data for {ticker_input}..."):
+    with st.spinner(f"Fetching data for {ss.ticker}..."):
         try:
             stock = yf.Ticker(ss.ticker)
             ss.company_name = stock.info.get("longName", ss.ticker)
-            df = stock.earnings_dates
+            raw = stock.earnings_dates
 
-            if df is None or df.empty:
+            if raw is None or raw.empty:
                 st.warning(f"No earnings data found for ticker {ss.ticker}")
                 ss.df = None
+                ss.analyzer = None
+                ss.analysis_source = None
             else:
-                analyzer = EarningsAnalyzer(df)
-                ss.df = analyzer.get_df()
-                ss.analyzer = analyzer
-                ss.predictor = Predictor(ss.ticker, analyzer)
+                analyzer_live = EarningsAnalyzer(raw)
+                ss.df = analyzer_live.get_df()
+                ss.analyzer = analyzer_live
+                ss.analysis_source = "live_fetch"
         except Exception as e:
             st.error(f"Error : {e}")
             ss.df = None
             ss.analyzer = None
+            ss.analysis_source = None
 
-if ss.df is None:
+
+# --- Materialize dataframe for rendering (locals, not pickles of predictor) ---
+analyzer = None
+df = None
+
+if ss.analysis_source == "favorite_json":
+    cached = favorites.get_cached_df(ss.ticker)
+    if cached is not None:
+        analyzer = EarningsAnalyzer(cached)
+        df = analyzer.get_df()
+    else:
+        st.sidebar.warning(
+            f"No cached earnings rows for {ss.ticker}. Click **Analyze Earnings** or re-save the favorite."
+        )
+        ss.analysis_source = None
+elif ss.analysis_source == "live_fetch" and ss.df is not None and ss.analyzer is not None:
+    analyzer = ss.analyzer
+    df = ss.df
+
+if df is None or analyzer is None:
     st.title("Earnings Edge")
     st.write("Enter a ticker in the sidebar and click Analyze to get started")
 else:
+    # Built each run: Predictor holds yfinance.Ticker (poorly serializable in session_state).
+    predictor = Predictor(ss.ticker, analyzer)
+
     st.title(f"Earnings Analysis for {ss.company_name} ({ss.ticker})")
 
     col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Beat Rate", f"{ss.analyzer.beat_rate():.0f}%")
-    col2.metric("Average EPS Surprise", f"{ss.analyzer.average_surprise():+.1f}%")
-    col3.metric("Best Quarter", f"{ss.analyzer.best_quarter():+.1f}%")
-    col4.metric("Worst Quarter", f"{ss.analyzer.worst_quarter():+.1f}%")
+    col1.metric("Beat Rate", f"{analyzer.beat_rate():.0f}%")
+    col2.metric("Average EPS Surprise", f"{analyzer.average_surprise():+.1f}%")
+    col3.metric("Best Quarter", f"{analyzer.best_quarter():+.1f}%")
+    col4.metric("Worst Quarter", f"{analyzer.worst_quarter():+.1f}%")
 
     st.divider()
 
-    tab1, tab2, tab3 = st.tabs(["EPS Surprise % Per Quarter", "Earnings History", "Prediction"])
+    tab1, tab2, tab3 = st.tabs(
+        ["EPS Surprise % Per Quarter", "Earnings History", "Prediction"]
+    )
 
     with tab1:
         st.write("### EPS Surprise % Per Quarter")
 
-        plot_df = ss.df.sort_index(ascending=True).tail(12)
+        plot_df = df.sort_index(ascending=True).tail(12)
 
         fig, ax = plt.subplots(figsize=(12, 5))
         fig.patch.set_facecolor("#0e1117")
@@ -168,16 +193,15 @@ else:
 
     with tab2:
         st.write("### Earnings History")
-        st.dataframe(ss.df, use_container_width=True)
+        st.dataframe(df, use_container_width=True)
 
     with tab3:
         st.write("### Earnings Beat Prediction")
 
-        pred = ss.predictor
-        prob = pred.beat_probability()
-        label = pred.prediction_label()
-        move = pred.implied_move()
-        date = pred.next_earnings_date()
+        prob = predictor.beat_probability()
+        label = predictor.prediction_label()
+        move = predictor.implied_move()
+        date = predictor.next_earnings_date()
 
         if date:
             st.info(f"Next Earnings Date: {date.strftime('%B %d, %Y')}")
@@ -203,7 +227,7 @@ else:
         st.divider()
 
         st.write("### Beat Probability Explanation")
-        df_display = ss.analyzer.get_df()
+        df_display = analyzer.get_df()
         recent = df_display.tail(4)
         older = df_display.iloc[:-4] if len(df_display) > 4 else None
 
@@ -227,9 +251,9 @@ else:
         favorites.save(
             ticker=ss.ticker,
             company_name=ss.company_name,
-            beat_rate=ss.analyzer.beat_rate(),
-            avg_surprise=ss.analyzer.average_surprise(),
-            df=ss.df,
+            beat_rate=analyzer.beat_rate(),
+            avg_surprise=analyzer.average_surprise(),
+            df=df,
             note=note,
         )
         st.success(f"{ss.ticker} added to favorites!")
