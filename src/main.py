@@ -55,13 +55,17 @@ with st.sidebar:
     favorites_list = favorites.get_all()
     if favorites_list:
         for fav in favorites_list:
+            info = favorites.get_info(fav)
             col_a, col_b = st.columns([4, 1])
             with col_a:
-                if st.button(fav, use_container_width=True, key=f"fav_{fav}"):
+                st.caption(f"**{fav}** - {info.get('company_name', '')}")
+                st.caption(f"Beat: {info.get('beat_rate', '?')}% | Avg Surprise: {info.get('avg_surprise', 0):+}% | Saved: {info.get('date_saved', '')}")
+                if st.button(f"Load {fav}", use_container_width=True, key=f"fav_{fav}"):
                     ss.ticker = fav
-                    ss.df = None
-                    ss.analyzer = None
-                    ss.auto_analyze = True
+                    ss.company_name = info.get("company_name", fav)
+                    ss.df = favorites.get_cached_df(fav)
+                    ss.analyzer = EarningsAnalyzer(ss.df) if ss.df is not None else None
+                    ss.predictor = Predictor(fav, ss.analyzer) if ss.analyzer is not None else None
                     st.rerun()
             with col_b:
                 if st.button("❌", key=f"del_{fav}"):
@@ -190,8 +194,15 @@ else:
             
     st.divider()
     st.subheader("Notes & Favorites")
-    note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker))
+    note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker), key=f"note_{ss.ticker}")
     if st.button("⭐ Add to Favorites"):
-        favorites.save(ss.ticker, note)
+        favorites.save(
+            ticker = ss.ticker,
+            company_name = ss.company_name,
+            beat_rate = ss.analyzer.beat_rate(),
+            avg_surprise = ss.analyzer.average_surprise(),
+            df = ss.df,
+            note = note
+        )
         st.success(f"{ss.ticker} added to favorites!")
     

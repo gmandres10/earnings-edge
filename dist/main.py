@@ -1,4 +1,7 @@
-"""Streamlit UI for analyzing earnings performance and predictions."""
+"""Streamlit entrypoint: earnings analysis dashboard with favorites and predictions.
+
+Logic matches ``src.main``; this tree adds documentation and readability only.
+"""
 
 import json
 import os
@@ -15,7 +18,7 @@ APP_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_data_path(filename: str) -> str:
-    """Return the absolute path for an app data file."""
+    """Return absolute path under ``dist/data/<filename>``."""
     return os.path.join(APP_PATH, "data", filename)
 
 
@@ -28,6 +31,7 @@ st.set_page_config(
 
 ss = st.session_state
 
+# Default session keys so downstream code can assume they exist.
 if "ticker" not in ss:
     ss.ticker = "AAPL"
 
@@ -60,22 +64,29 @@ with st.sidebar:
     favorites_list = favorites.get_all()
     if favorites_list:
         for fav in favorites_list:
+            info = favorites.get_info(fav)
             col_a, col_b = st.columns([4, 1])
             with col_a:
-                if st.button(fav, use_container_width=True, key=f"fav_{fav}"):
+                st.caption(f"**{fav}** - {info.get('company_name', '')}")
+                st.caption(
+                    f"Beat: {info.get('beat_rate', '?')}% | "
+                    f"Avg Surprise: {info.get('avg_surprise', 0):+}% | "
+                    f"Saved: {info.get('date_saved', '')}"
+                )
+                # Hydrate analyzer/predictor from disk-backed snapshot (no Yahoo refetch).
+                if st.button(f"Load {fav}", use_container_width=True, key=f"fav_{fav}"):
                     ss.ticker = fav
-                    ss.df = None
-                    ss.analyzer = None
-                    ss.auto_analyze = True
+                    ss.company_name = info.get("company_name", fav)
+                    ss.df = favorites.get_cached_df(fav)
+                    ss.analyzer = EarningsAnalyzer(ss.df) if ss.df is not None else None
+                    ss.predictor = Predictor(fav, ss.analyzer) if ss.analyzer is not None else None
                     st.rerun()
             with col_b:
                 if st.button("❌", key=f"del_{fav}"):
                     favorites.remove(fav)
                     st.rerun()
     else:
-        st.caption(
-            "No favorites yet. Analyze a stock and click the ⭐ button to add it here."
-        )
+        st.caption("No favorites yet. Analyze a stock and click the ⭐ button to add it here.")
 
 if (analyze_button and ticker_input) or ss.auto_analyze:
     ss.auto_analyze = False
@@ -115,9 +126,7 @@ else:
 
     st.divider()
 
-    tab1, tab2, tab3 = st.tabs(
-        ["EPS Surprise % Per Quarter", "Earnings History", "Prediction"]
-    )
+    tab1, tab2, tab3 = st.tabs(["EPS Surprise % Per Quarter", "Earnings History", "Prediction"])
 
     with tab1:
         st.write("### EPS Surprise % Per Quarter")
@@ -209,7 +218,18 @@ else:
 
     st.divider()
     st.subheader("Notes & Favorites")
-    note = st.text_area("Personal Note for this Stock", value=favorites.get_note(ss.ticker), key=f"note_{ss.ticker}")
+    note = st.text_area(
+        "Personal Note for this Stock",
+        value=favorites.get_note(ss.ticker),
+        key=f"note_{ss.ticker}",
+    )
     if st.button("⭐ Add to Favorites"):
-        favorites.save(ss.ticker, note)
+        favorites.save(
+            ticker=ss.ticker,
+            company_name=ss.company_name,
+            beat_rate=ss.analyzer.beat_rate(),
+            avg_surprise=ss.analyzer.average_surprise(),
+            df=ss.df,
+            note=note,
+        )
         st.success(f"{ss.ticker} added to favorites!")

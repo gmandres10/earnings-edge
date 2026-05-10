@@ -1,20 +1,23 @@
-"""Prediction helpers built on top of earnings history."""
+"""Heuristic beat outlook and shallow options-implied move from Yahoo Finance."""
 
 import pandas as pd
 import yfinance as yf
 
 
 class Predictor:
-    """Generate beat-probability and implied-move estimates."""
+    """Combines cached earnings history with live quote/options where requested.
+
+    ``beat_probability`` and ``prediction_label`` use only ``analyzer``.
+    ``implied_move`` and ``next_earnings_date`` call Yahoo (network-bound).
+    """
 
     def __init__(self, ticker, analyzer):
-        """Initialize predictor with ticker and prepared analyzer."""
         self.ticker = ticker
         self.analyzer = analyzer
         self._stock = yf.Ticker(ticker)
 
     def beat_probability(self):
-        """Return weighted beat probability based on historical quarters."""
+        """Weighted beat rate: last 4 quarters count double vs older quarters."""
         df = self.analyzer.get_df()
 
         if df.empty:
@@ -38,7 +41,7 @@ class Predictor:
         return (total_beats / total_weight) * 100
 
     def implied_move(self):
-        """Estimate implied move using the nearest at-the-money straddle."""
+        """Rough straddle-implied pct move: ATM call+put ``lastPrice`` / spot."""
         try:
             current_price = self._stock.info.get("currentPrice") or self._stock.info.get(
                 "regularMarketPrice"
@@ -75,17 +78,16 @@ class Predictor:
             return None
 
     def prediction_label(self):
-        """Return a human-readable beat-probability bucket."""
+        """Bucketed copy line for UI from ``beat_probability()``."""
         prob = self.beat_probability()
         if prob >= 70:
             return "🟢 High Probability of Beat"
-        elif prob >= 45:
+        if prob >= 45:
             return "🟡 Coin Flip"
-        else:
-            return "🔴 Likely Miss"
+        return "🔴 Likely Miss"
 
     def next_earnings_date(self):
-        """Return the next upcoming earnings date when available."""
+        """Earliest scheduled earnings strictly on/after *now* in the index TZ."""
         try:
             df = self._stock.earnings_dates
             if df is None or df.empty:

@@ -1,17 +1,22 @@
-"""Utilities for cleaning and analyzing earnings results data."""
+"""Transform raw Yahoo Finance earnings tables into labeled surprise metrics."""
 
 import pandas as pd
 
 
 class EarningsAnalyzer:
-    """Analyze historical earnings surprises for a given ticker."""
+    """Compute beat/miss labels and summary stats from quarterly earnings rows.
+
+    Expects the same columns as ``yfinance.Ticker.earnings_dates`` after ingestion:
+    datetime index ``Earnings Date``, ``EPS Estimate``, ``Reported EPS``, optional
+    ``Surprise(%)`` from Yahoo (dropped here in favor of a derived column).
+    """
 
     def __init__(self, raw_df):
-        """Build the analyzer from a raw earnings DataFrame."""
+        """Normalize *raw_df* into ``self.df`` (sorted newest-first by earnings date)."""
         self.df = self._clean_data(raw_df)
 
     def _clean_data(self, df):
-        """Prepare earnings data and derive beat/miss and surprise metrics."""
+        """Drop incomplete rows, compute surprise % and human-readable beat/miss."""
         df = df.dropna(subset=["EPS Estimate", "Reported EPS"]).copy()
 
         df = df.sort_index(ascending=False)
@@ -30,25 +35,25 @@ class EarningsAnalyzer:
         return df
 
     def get_df(self):
-        """Return the cleaned earnings DataFrame."""
+        """Return the cleaned dataframe (DatetimeIndex preserved)."""
         return self.df
 
     def beat_rate(self):
-        """Return the percentage of quarters that beat estimates."""
+        """Percentage of quarters with positive EPS surprise."""
         return self._beat_rate
 
     def average_surprise(self):
-        """Return the average earnings surprise percentage."""
+        """Mean of ``Surprise %`` across retained quarters."""
         return self.df["Surprise %"].mean()
 
     def best_quarter(self):
-        """Return the strongest quarter by surprise percentage."""
+        """Largest ``Surprise %``."""
         return self.df["Surprise %"].max()
 
     def worst_quarter(self):
-        """Return the weakest quarter by surprise percentage."""
+        """Smallest ``Surprise %``."""
         return self.df["Surprise %"].min()
 
     def quarters_analyzed(self):
-        """Return the total number of analyzed quarters."""
+        """Row count after cleaning."""
         return len(self.df)

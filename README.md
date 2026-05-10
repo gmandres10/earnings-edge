@@ -55,30 +55,32 @@ It pulls market data from Yahoo Finance (`yfinance`), computes earnings surprise
 
 ### 4) Favorites and notes
 
-`FavoritesManager` stores favorites in JSON (`data/favorites.json`) with schema:
+`FavoritesManager` writes JSON next to the entrypoint package you launch. **`src/data` and `dist/data` are independent** (separate files; nothing is synced automatically):
 
-```json
-{
-  "AAPL": {
-    "note": "My thesis for next earnings..."
-  }
-}
-```
+| Command | Favorites path |
+|---------|----------------|
+| `streamlit run src/main.py` | `src/data/favorites.json` |
+| `streamlit run dist/main.py` | `dist/data/favorites.json` |
+
+Each ticker entry can store metadata plus a serialized earnings snapshot (`data` rows). Older examples may only have a note field.
 
 ## Project structure
 
 ```text
 earnings-edge/
   src/
-    main.py               # Streamlit app entrypoint (source version)
+    main.py               # Streamlit app entrypoint (playground)
     earnings_analyzer.py  # Earnings transformation and metrics
     predictor.py          # Beat probability + implied move logic
-    favorites_manager.py  # Local favorites/note persistence
+    favorites_manager.py  # Local favorites persistence
     get_data.py           # Helper class for yfinance access
     data/
-      favorites.json
+      favorites.json      # Persistence when running src
   dist/
-    ...                   # Runtime copy/build output of the app modules
+    main.py               # Documented parity copy of src
+    ...                   # Same modules + docstrings as src
+    data/
+      favorites.json      # Persistence when running dist (independent from src/data)
   Demo.mp4                # Demo video asset
 ```
 
